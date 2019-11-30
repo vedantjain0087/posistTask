@@ -2,7 +2,7 @@ const userModel = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-// Create and Save a new Car
+// Create a new user
 exports.create = (req, res, next) => {
     userModel.create({
         username: req.body.username,
@@ -24,3 +24,47 @@ exports.create = (req, res, next) => {
             });
     });
 };
+
+exports.authenticate = (req, res, next) => {
+    userModel.findOne({
+        username: req.body.username
+    }, function (err, userInfo) {
+        if (err) {
+            res.status(400).json({
+                status: "error",
+                message: "Invalid Login",
+                data: err
+            });
+        } else {
+            if(userInfo == null){
+                res.status(400).json({
+                    status: "error",
+                    message: "Invalid Username",
+                    data: null
+                });
+                return;
+            }
+            if (bcrypt.compareSync(req.body.password, userInfo.password)) {
+                const token = jwt.sign({
+                    id: userInfo._id
+                }, req.app.get('secretKey'), {
+                    expiresIn: '1h'
+                });
+                res.status(200).json({
+                    status: "success",
+                    message: "user found!!!",
+                    data: {
+                        user: userInfo,
+                        token: token
+                    }
+                });
+            } else {
+                res.status(400).json({
+                    status: "error",
+                    message: "Invalid password!!!",
+                    data: null
+                });
+            }
+        }
+    });
+}

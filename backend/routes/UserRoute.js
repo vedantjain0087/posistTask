@@ -3,4 +3,5 @@ module.exports = (app) => {
 
     // Create a new Login
     app.post('/Register', User.create);
+    app.post('/Login', User.authenticate);
 }
