@@ -1,24 +1,49 @@
-// server.js
+const express = require('express')
+var jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser');
+var morgan = require('morgan');
+const app = express();
+app.set('secretKey', 'nodeRestApi');
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
+app.use(bodyParser.json())
+const dbConfig = require('./backend/config/config.js');
+const mongoose = require('mongoose');
 
-    // set up ========================
-    var express  = require('express');
-    var app      = express();                               // create our app w/ express
-    var mongoose = require('mongoose');                     // mongoose for mongodb
-    var morgan = require('morgan');             // log requests to the console (express4)
-    var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
-    var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
+mongoose.Promise = global.Promise;
 
-    // configuration =================
+mongoose.connect(dbConfig.url, {
+    useUnifiedTopology: true
+}).then(() => {
+    console.log("Successfully connected to the database");
+}).catch(err => {
+    console.log('Could not connect to the database. Exiting now...', err);
+    process.exit();
+});
 
-    mongoose.connect('mongodb://prime:posist123@ds045948.mlab.com:45948/posist');     // connect to mongoDB database on modulus.io
+// configuration =================
 
-    app.use(express.static(__dirname + '/public'));                 // set the static files location /public/img will be /img for users
-    app.use(morgan('dev'));                                         // log every request to the console
-    app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
-    app.use(bodyParser.json());                                     // parse application/json
-    app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
-    app.use(methodOverride());
+app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
+app.use(morgan('dev')); // log every request to the console
+app.use(bodyParser.urlencoded({
+    'extended': 'true'
+})); // parse application/x-www-form-urlencoded
+app.use(bodyParser.json()); // parse application/json
+app.use(bodyParser.json({
+    type: 'application/vnd.api+json'
+})); // parse application/vnd.api+json as json
 
-    // listen (start app with node server.js) ======================================
-    app.listen(8080);
-    console.log("App listening on port 8080");
+// listen (start app with node server.js) ======================================
+app.get('/', (req, res) => {
+    res.json({
+        "message": "Welcome to Posist Task"
+    });
+});
+
+require('./backend/routes/UserRoute.js')(app);
+
+
+app.listen(process.env.PORT || 3000, () => {
+    console.log("Server is listening on port 3000");
+});
