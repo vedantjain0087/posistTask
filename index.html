@@ -15,11 +15,13 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="/assets/demo/demo.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <base href="/">
 </head>
 
 <body ng-app="PosistApp" ng-controller="AppController" class="landing-page sidebar-collapse">
     <ng-view ng-cloak autoscroll></ng-view>
 
+    <ng-footer></ng-footer>
     <script src="/assets/js/core/jquery.min.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-route.min.js"></script>
@@ -39,8 +41,10 @@
     <script src="/assets/js/paper-kit.js?v=2.2.0" type="text/javascript"></script>
 
     <script src="/module.js"></script>
+    <script src="/directives/directive.js"></script>
     <script src="/controllers/app.controller.js"></script>
     <script src="/controllers/home.controller.js"></script>
+    <script src="/controllers/login.controller.js"></script>
 </body>
 
 </html>
