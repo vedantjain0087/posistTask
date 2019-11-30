@@ -23,3 +23,21 @@ exports.create = (req, res, next) => {
         }
     });
 }
+
+exports.retrieve = (req, res, next) =>{
+    postModel.find({
+        channel_id:req.body.channel_id
+    })
+    .then(posts => {
+        res.status(200).json({
+            status: "success",
+            data: posts
+        });
+    }).catch(err => {
+        res.status(400).json({
+            status: "error",
+            message: "Some Error Occured",
+            data: err
+        });
+    });
+}
