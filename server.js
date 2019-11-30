@@ -36,9 +36,7 @@ app.use(bodyParser.json({
 
 // listen (start app with node server.js) ======================================
 app.get('/', (req, res) => {
-    res.json({
-        "message": "Welcome to Posist Task"
-    });
+    res.sendfile('./index.html');
 });
 
 require('./backend/routes/UserRoute.js')(app);
