@@ -10,18 +10,20 @@ exports.create = (req, res, next) => {
         region: req.body.region,
         password: req.body.password
     }, function (err, result) {
-        if (err)
+        if (err) {
             res.status(400).json({
                 status: "error",
                 message: "User Was not added",
                 data: err
             });
-        else
+        } else {
             res.status(200).json({
                 status: "success",
                 message: "User added successfully!!!",
                 data: result
             });
+        }
+
     });
 };
 
@@ -36,7 +38,7 @@ exports.authenticate = (req, res, next) => {
                 data: err
             });
         } else {
-            if(userInfo == null){
+            if (userInfo == null) {
                 res.status(400).json({
                     status: "error",
                     message: "Invalid Username",

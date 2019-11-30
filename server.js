@@ -42,6 +42,8 @@ app.get('/', (req, res) => {
 });
 
 require('./backend/routes/UserRoute.js')(app);
+require('./backend/routes/ChannelsRoute.js')(app);
+require('./backend/routes/PostRoute.js')(app);
 
 
 app.listen(process.env.PORT || 3000, () => {

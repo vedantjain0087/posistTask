@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+
 module.exports = (app) => {
     const User = require('../controllers/User.controller.js');
 
