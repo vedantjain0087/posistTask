@@ -33,20 +33,43 @@ exports.join = (req, res, next) => {
             users: req.body.user_id
         }
     }, function (err, result) {
-        if (err){
+        if (err) {
             res.status(400).json({
                 status: "error",
                 message: "User was not added",
                 data: err
             });
-        }
-        else{
+        } else {
             res.status(200).json({
                 status: "success",
                 message: "User added successfully!!!",
                 data: result
             });
         }
-           
+
+    })
+}
+
+exports.myChannels = (req, res, next) => {
+    channelModel.find({
+        "users": {
+            $elemMatch: {
+                $eq: req.body.user_id
+            }
+        }
+    }, function (err, result) {
+        if (err) {
+            res.status(400).json({
+                status: "error",
+                message: "Some Error Occured",
+                data: err
+            });
+        } else {
+            res.status(200).json({
+                status: "success",
+                message: "Success",
+                data: result
+            });
+        }
     })
 }

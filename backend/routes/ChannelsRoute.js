@@ -6,6 +6,9 @@ module.exports = (app) => {
     app.post('/createchannel', Channel.create);// Create a new Login
     
     app.post('/joinchannel', Channel.join);// Join a channel
+
+    app.post('/mychannels', Channel.myChannels);// Join a channel
+
   
 
     function validateUser(req, res, next) {

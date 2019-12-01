@@ -10,4 +10,17 @@ app.service("AuthService", function ($http, $q) {
         });
         return pr.promise;
     }
+
+    this.authenticate = function(obj){
+        let pr = $q.defer();
+        var url = "/login";
+        $http.post(url, obj).then(function (data) {
+            localStorage.setItem('user-token', data.data.data.token);
+            localStorage.setItem('id', data.data.data.user._id);
+            pr.resolve(data);
+        }, function (err) {
+            pr.reject(err);
+        });
+        return pr.promise;
+    }
 })

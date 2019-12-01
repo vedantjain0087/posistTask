@@ -1,0 +1,22 @@
+<ng-header></ng-header>
+<div class="main">
+    <div class="section">
+        <div class="container custpadding">
+            <div class="row">
+                <div ng-show="myChannels.length != 0" class="card" ng-repeat="c in myChannels" style="width:300px">
+                    <img class="card-img-top" src="assets/img/channel.png" alt="Card image" style="width:100%">
+                    <div class="card-body">
+                        <h4 class="card-title">{{c.name}}</h4>
+                        <p class="card-text">{{c.description}}</p>
+                        <a href="#" class="btn btn-primary">Explore</a>
+                    </div>
+                </div>
+
+                <div ng-show="myChannels.length == 0" class="jumbotron jumbotron-fluid col-md-12 text-center">
+                    <h1>No Channels joined yet</h1>
+                    <p>Explore new channels and join them</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

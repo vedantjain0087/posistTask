@@ -6,6 +6,15 @@ app.directive("ngHeaderStatic", function () {
     }
 });
 
+app.directive("ngHeader", function () {
+    return {
+        templateUrl: "/views/dashboard_navbar.html",
+        restrict: "E",
+        controller: "AppController"
+    }
+});
+
+
 app.directive("ngFooter", function () {
     return {
         templateUrl: "/views/footer.html",

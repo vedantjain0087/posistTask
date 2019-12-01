@@ -7,5 +7,8 @@ app.config(function ($routeProvider, $locationProvider) {
     }).when("/login", {
         templateUrl: "/views/login.html",
         controller: "LoginController"
+    }).when("/dashboard", {
+        templateUrl: "/views/dashboard.html",
+        controller: "DashController"
     })
 })
