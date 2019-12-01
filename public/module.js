@@ -10,5 +10,8 @@ app.config(function ($routeProvider, $locationProvider) {
     }).when("/dashboard", {
         templateUrl: "/views/dashboard.html",
         controller: "DashController"
+    }).when("/channel/:id", {
+        templateUrl: "/views/channel.html",
+        controller: "ChannelController"
     })
 })

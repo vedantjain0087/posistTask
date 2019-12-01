@@ -13,7 +13,12 @@ app.directive("ngHeader", function () {
         controller: "AppController"
     }
 });
-
+app.directive("ngChannel", function () {
+    return {
+        templateUrl: "/views/channel_navbar.html",
+        restrict: "E"
+    }
+});
 
 app.directive("ngFooter", function () {
     return {

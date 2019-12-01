@@ -5,6 +5,7 @@ var ObjectId = require('mongodb').ObjectID;
 exports.create = (req, res, next) => {
     postModel.create({
         uid: req.body.uid,
+        ref_id:ObjectId(req.body.uid),
         channel_id: req.body.channel_id,
         description: req.body.description,
     }, function (err, result) {
@@ -24,20 +25,52 @@ exports.create = (req, res, next) => {
     });
 }
 
-exports.retrieve = (req, res, next) =>{
-    postModel.find({
-        channel_id:req.body.channel_id
+exports.retrieve = (req, res, next) => {
+    postModel.aggregate([{
+            "$match": {
+                channel_id: req.body.channel_id
+            }
+        },
+        {
+            $lookup: {
+                from: "users",
+                localField: "ref_id",
+                foreignField: "_id",
+                as: "matched_docs"
+            }
+        }
+    ], function (err, data) {
+        if(err){
+            res.status(400).json({
+                status: "error",
+                message: "Some Error Occured",
+                data: err
+            });
+        }else{
+            res.status(200).json({
+                status: "success",
+                data: data
+            });
+           
+        }
     })
-    .then(posts => {
-        res.status(200).json({
-            status: "success",
-            data: posts
-        });
-    }).catch(err => {
-        res.status(400).json({
-            status: "error",
-            message: "Some Error Occured",
-            data: err
-        });
-    });
+
+
+
+
+    // postModel.find({
+
+    //     })
+    //     .then(posts => {
+    //         res.status(200).json({
+    //             status: "success",
+    //             data: posts
+    //         });
+    //     }).catch(err => {
+    //         res.status(400).json({
+    //             status: "error",
+    //             message: "Some Error Occured",
+    //             data: err
+    //         });
+    //     });
 }

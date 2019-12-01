@@ -1,0 +1,51 @@
+<ng-channel></ng-channel>
+<div class="container-fluid pdng">
+    <div class="row">
+        <div class="col-md-3 col-xs-1 p-l-0 p-r-0" id="sidebar">
+            <div class="list-group panel">
+                <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><span
+                        class="hidden-sm-down"><b>{{channel_detail.name | uppercase}}</b></span></a>
+
+                <a href="#menu1" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar"
+                    aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="hidden-sm-down">Item 1</span>
+                </a>
+                <div class="collapse" id="menu1">
+                    <a href="#menu1sub1" class="list-group-item" data-toggle="collapse" aria-expanded="false">Subitem 1
+                    </a>
+                    <a href="#" class="list-group-item" data-parent="#menu1">Subitem 2</a>
+                    <a href="#" class="list-group-item" data-parent="#menu1">Subitem 3</a>
+                </div>
+            </div>
+        </div>
+        <main class="col-md-9 col-xs-11 p-l-2 p-t-2">
+            <div class="section landing-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 ml-auto mr-auto">
+                            <div ng-repeat="p in posts" class="typography-line">
+                                <blockquote class="blockquote">
+                                    <p class="mb-0">
+                                        {{p.description}}
+                                    </p>
+                                    <br />
+                                    <footer class="blockquote-footer" style="color:black;font-size: 10px"> Posted by : <b>{{p.matched_docs[0].username}} </b> || Posted On : <b>{{p.createdAt | date:'medium'}}</b>
+                                    </footer>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 ml-auto mr-auto">
+                            <form class="contact-form">
+                                <label>Create a Post</label>
+                                <textarea class="form-control" rows="4" ng-model="description"
+                                    placeholder="Tell us your thoughts and feelings..."></textarea>
+                                <button class="btn btn-danger btn-lg btn-fill" ng-click="createPost()">Post</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

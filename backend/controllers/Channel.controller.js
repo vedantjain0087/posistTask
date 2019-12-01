@@ -73,3 +73,24 @@ exports.myChannels = (req, res, next) => {
         }
     })
 }
+
+
+exports.channel = (req, res, next) => {
+    channelModel.find({
+        "_id":ObjectId(req.body.id)
+    }, function (err, result) {
+        if (err) {
+            res.status(400).json({
+                status: "error",
+                message: "Some Error Occured",
+                data: err
+            });
+        } else {
+            res.status(200).json({
+                status: "success",
+                message: "Success",
+                data: result
+            });
+        }
+    })
+}

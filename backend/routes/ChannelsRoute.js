@@ -7,7 +7,10 @@ module.exports = (app) => {
     
     app.post('/joinchannel', Channel.join);// Join a channel
 
-    app.post('/mychannels', Channel.myChannels);// Join a channel
+    app.post('/mychannels', Channel.myChannels);// Fetch your channels
+
+    app.post('/channel', Channel.channel);// Fetch your channels
+
 
   
 

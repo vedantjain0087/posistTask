@@ -7,6 +7,10 @@ const postSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    ref_id: {
+        type: mongoose.Schema.ObjectId,
+        required: true
+    },
     channel_id: {
         type: String,
         required: true
