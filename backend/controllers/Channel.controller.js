@@ -1,4 +1,5 @@
 const channelModel = require('../models/channel');
+const userModel = require('../models/user');
 var ObjectId = require('mongodb').ObjectID;
 
 // Create a new channel
@@ -30,7 +31,7 @@ exports.join = (req, res, next) => {
         _id: ObjectId(req.body.channel_id)
     }, {
         $push: {
-            users: req.body.user_id
+            users: ObjectId(req.body.user_id)
         }
     }, function (err, result) {
         if (err) {
@@ -54,7 +55,7 @@ exports.myChannels = (req, res, next) => {
     channelModel.find({
         "users": {
             $elemMatch: {
-                $eq: req.body.user_id
+                $eq: ObjectId(req.body.user_id)
             }
         }
     }, function (err, result) {
@@ -77,7 +78,7 @@ exports.myChannels = (req, res, next) => {
 
 exports.channel = (req, res, next) => {
     channelModel.find({
-        "_id":ObjectId(req.body.id)
+        "_id": ObjectId(req.body.id)
     }, function (err, result) {
         if (err) {
             res.status(400).json({
@@ -93,4 +94,39 @@ exports.channel = (req, res, next) => {
             });
         }
     })
+
+}
+
+exports.members = (req, res, next) => {
+    channelModel.find({
+        "_id": ObjectId(req.body.id)
+    }, function (err, result) {
+        if (err) {
+            res.status(400).json({
+                status: "error",
+                message: "Some Error Occured",
+                data: err
+            });
+        } else {
+            userModel.find({
+                _id: {
+                    $in: result[0].users
+                }
+            }, function (err, data) {
+                if (err) {
+                    res.status(400).json({
+                        status: "error",
+                        message: "Some Error Occured",
+                        data: err
+                    });
+                } else {
+                    res.status(200).json({
+                        status: "success",
+                        message: "Success",
+                        data: data
+                    });
+                }
+            });
+        }
+    });
 }

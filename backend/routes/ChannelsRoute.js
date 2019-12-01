@@ -11,6 +11,9 @@ module.exports = (app) => {
 
     app.post('/channel', Channel.channel);// Fetch your channels
 
+    app.post('/members', Channel.members);// Fetch members
+
+
 
   
 

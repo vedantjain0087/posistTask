@@ -5,6 +5,8 @@ app.controller("ChannelController", function ($scope, $rootScope, $location, Cha
     }
 
     $scope.channel_detail = [];
+    $scope.members = [];
+
     ChannelService.retrieveChannel({
         "id": $routeParams.id
     }).then(function (data) {
@@ -18,12 +20,25 @@ app.controller("ChannelController", function ($scope, $rootScope, $location, Cha
             });
         })
 
+        ChannelService.members({
+            "id": $routeParams.id
+        }).then(function (data) {
+                $scope.members = data.data.data;
+                console.log($scope.members)
+            },
+            function (error) {
+                swal({
+                    title: "Error",
+                    text: "Some Error occured",
+                    icon: "warning",
+                });
+            })
+
     $scope.retrievePosts = function () {
         ChannelService.retrievePosts({
             "channel_id": $routeParams.id
         }).then(function (data) {
                 $scope.posts = data.data.data;
-                console.log($scope.posts);
             },
             function (error) {
                 swal({

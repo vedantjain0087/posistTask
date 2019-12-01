@@ -6,6 +6,12 @@
                 <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><span
                         class="hidden-sm-down"><b>{{channel_detail.name | uppercase}}</b></span></a>
 
+                <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><span
+                        class="hidden-sm-down"><b>MEMBERS LIST</b></span></a>
+
+                <a href="#" ng-repeat="m in members" class="list-group-item collapsed" data-parent="#sidebar"><span
+                        class="hidden-sm-down"><b>{{m.username}}</b></span></a>
+
                 <a href="#menu1" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar"
                     aria-expanded="false"><i class="fa fa-dashboard"></i> <span class="hidden-sm-down">Item 1</span>
                 </a>
@@ -28,7 +34,9 @@
                                         {{p.description}}
                                     </p>
                                     <br />
-                                    <footer class="blockquote-footer" style="color:black;font-size: 10px"> Posted by : <b>{{p.matched_docs[0].username}} </b> || Posted On : <b>{{p.createdAt | date:'medium'}}</b>
+                                    <footer class="blockquote-footer" style="color:black;font-size: 10px"> Posted by :
+                                        <b>{{p.matched_docs[0].username}} </b> || Posted On :
+                                        <b>{{p.createdAt | date:'medium'}}</b>
                                     </footer>
                                 </blockquote>
                             </div>
