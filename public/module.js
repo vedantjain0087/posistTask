@@ -13,5 +13,11 @@ app.config(function ($routeProvider, $locationProvider) {
     }).when("/channel/:id", {
         templateUrl: "/views/channel.html",
         controller: "ChannelController"
+    }).when("/createchannel", {
+        templateUrl: "/views/createChannel.html",
+        controller: "CreateChannelController"
+    }).when("/joinchannel", {
+        templateUrl: "/views/joinChannel.html",
+        controller: "JoinChannelController"
     })
 })

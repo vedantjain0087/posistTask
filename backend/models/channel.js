@@ -1,11 +1,8 @@
 const mongoose = require("mongoose");
-require('mongoose-type-email');
-
 
 const channelSchema = mongoose.Schema({
     name: {
         type: String,
-        unique: true,
         trim: true,
         required: true
     },

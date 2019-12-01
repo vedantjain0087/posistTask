@@ -9,9 +9,12 @@ module.exports = (app) => {
 
     app.post('/mychannels', Channel.myChannels);// Fetch your channels
 
-    app.post('/channel', Channel.channel);// Fetch your channels
+    app.post('/channel', Channel.channel);// Info about a channel
 
     app.post('/members', Channel.members);// Fetch members
+
+    app.post('/availablechannels', Channel.available);// Available Channels to join
+
 
 
 

@@ -1,0 +1,53 @@
+<ng-header></ng-header>
+<div class="main">
+    <div class="section">
+        <div class="container custpadding">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <h2 class="text-center">Create Channel</h2>
+                    <form class="contact-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Channel Name</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="nc-icon nc-single-02"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" ng-model="channel.name" placeholder="Channel Name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <label ng-repeat="fruitName in fruits">
+                                    <input type="checkbox" name="selectedFruits[]" value="{{fruitName}}"
+                                        ng-checked="selection.indexOf(fruitName) > -1"
+                                        ng-click="toggleSelection(fruitName)"> {{fruitName}}
+                                </label>
+                                <label>Tags</label>
+                                <br />
+                                <label ng-repeat="b in channel.boxes">
+                                    <input value="{{b}}" ng-checked="selection.indexOf(b) > -1"
+                                        ng-click="toggleSelection(b)" type="checkbox" />
+                                    {{b}} &nbsp;&nbsp;&nbsp;
+                                </label>
+
+                            </div>
+                        </div>
+                        <label>Channel Description</label>
+                        <textarea ng-model="channel.description" class="form-control" rows="4"
+                            placeholder="Tell us your thoughts and feelings..."></textarea>
+                        <div class="row">
+                            <div class="col-md-4 ml-auto mr-auto">
+                                <button class="btn btn-danger btn-lg btn-fill"
+                                    ng-click="createChannel()">Create</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

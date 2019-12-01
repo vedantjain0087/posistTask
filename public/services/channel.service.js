@@ -54,5 +54,35 @@ app.service("ChannelService", function ($http, $q) {
         });
         return pr.promise;
     }
-    
+
+    this.createChannel = function(obj){
+        let pr = $q.defer();
+        var url = "/createchannel";
+        $http.post(url, obj).then(function (data) {
+            pr.resolve(data);
+        }, function (err) {
+            pr.reject(err);
+        });
+        return pr.promise;
+    }
+    this.availableChannels = function(obj){
+        let pr = $q.defer();
+        var url = "/availablechannels";
+        $http.post(url, obj).then(function (data) {
+            pr.resolve(data);
+        }, function (err) {
+            pr.reject(err);
+        });
+        return pr.promise;
+    }
+    this.join = function(obj){
+        let pr = $q.defer();
+        var url = "/joinchannel";
+        $http.post(url, obj).then(function (data) {
+            pr.resolve(data);
+        }, function (err) {
+            pr.reject(err);
+        });
+        return pr.promise;
+    }
 });

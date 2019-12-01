@@ -20,19 +20,19 @@ app.controller("ChannelController", function ($scope, $rootScope, $location, Cha
             });
         })
 
-        ChannelService.members({
-            "id": $routeParams.id
-        }).then(function (data) {
-                $scope.members = data.data.data;
-                console.log($scope.members)
-            },
-            function (error) {
-                swal({
-                    title: "Error",
-                    text: "Some Error occured",
-                    icon: "warning",
-                });
-            })
+    ChannelService.members({
+        "id": $routeParams.id
+    }).then(function (data) {
+            $scope.members = data.data.data;
+            console.log($scope.members)
+        },
+        function (error) {
+            swal({
+                title: "Error",
+                text: "Some Error occured",
+                icon: "warning",
+            });
+        })
 
     $scope.retrievePosts = function () {
         ChannelService.retrievePosts({
@@ -72,4 +72,5 @@ app.controller("ChannelController", function ($scope, $rootScope, $location, Cha
                 });
             })
     }
+  
 })
