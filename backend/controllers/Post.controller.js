@@ -76,7 +76,8 @@ exports.activeUsers = (req, res, next) => {
                 foreignField: "_id",
                 as: "matched_docs"
             }
-        }
+        },
+        { $limit : 5 }
     ], function (err, result) {
         if (err) {
             res.status(400).json({

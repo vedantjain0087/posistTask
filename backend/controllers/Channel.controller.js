@@ -168,7 +168,8 @@ exports.trendingChannels = (req, res, next) => {
             $sort: {
                 subscribedGroupsLength: -1
             }
-        }
+        },
+        { $limit : 5 }
     ], function (err, result) {
         if (err) {
             res.status(400).json({
@@ -201,7 +202,8 @@ exports.trendingTags = (req, res, next) => {
             $sort: {
                 sum: -1
             }
-        }
+        },
+        { $limit : 5 }
     ], function (err, result) {
         if (err) {
             res.status(400).json({

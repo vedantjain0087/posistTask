@@ -1,4 +1,4 @@
-app.controller("DashController", function ($scope, $rootScope, $location, ChannelService) {
+app.controller("DashController", function ($scope, $rootScope, $location, ChannelService, AuthService) {
     if (!localStorage.getItem('id')) {
         $location.path('/');
         return;
@@ -7,6 +7,7 @@ app.controller("DashController", function ($scope, $rootScope, $location, Channe
     $scope.trendingChannels = [];
     $scope.activeUsers = [];
     $scope.tags = [];
+    $scope.regions = [];
     ChannelService.myChannels({
         "user_id": localStorage.getItem('id')
     }).then(function (data) {
@@ -33,6 +34,11 @@ app.controller("DashController", function ($scope, $rootScope, $location, Channe
 
     ChannelService.trendingTags().then(function (data) {
         $scope.tags = data.data.data;
+    }, function (err) {
+        console.log(err);
+    })
+    AuthService.trendingRegion().then(function (data) {
+        $scope.regions = data.data.data;
     }, function (err) {
         console.log(err);
     })

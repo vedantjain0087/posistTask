@@ -23,4 +23,20 @@ app.service("AuthService", function ($http, $q) {
         });
         return pr.promise;
     }
+    this.trendingRegion = function () {
+        var pr = $q.defer();
+        $http.get('/trendingregion', {
+                headers: {
+                    "x-access-token": localStorage.getItem('user-token')
+                }
+            })
+            .then(function (data) {
+                pr.resolve(data);
+            }, function (err) {
+                pr.reject(err);
+            }).catch(function (err) {
+                console.log("ERROR");
+            });
+        return pr.promise;
+    }
 })

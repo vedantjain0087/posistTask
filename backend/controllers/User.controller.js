@@ -70,3 +70,35 @@ exports.authenticate = (req, res, next) => {
         }
     });
 }
+
+exports.trendingRegion = (req, res, next) =>{
+    userModel.aggregate([{
+        $group: {
+            _id: "$region",
+            count: {
+                $sum: 1
+            }
+        }
+    },
+    {
+        $sort: {
+            'count': -1
+        }
+    },
+    { $limit : 5 }
+], function (err, result) {
+    if (err) {
+        res.status(400).json({
+            status: "error",
+            message: "Some Error Occured",
+            data: err
+        });
+    } else {
+        res.status(200).json({
+            status: "success",
+            message: "Success",
+            data: result
+        });
+    }
+})
+}
