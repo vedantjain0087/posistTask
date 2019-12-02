@@ -6,6 +6,8 @@ app.controller("ChannelController", function ($scope, $rootScope, $location, Cha
 
     $scope.channel_detail = [];
     $scope.members = [];
+    $scope.total_posts = [];
+    $scope.posts = []
 
     ChannelService.retrieveChannel({
         "id": $routeParams.id
@@ -24,7 +26,6 @@ app.controller("ChannelController", function ($scope, $rootScope, $location, Cha
         "id": $routeParams.id
     }).then(function (data) {
             $scope.members = data.data.data;
-            console.log($scope.members)
         },
         function (error) {
             swal({
@@ -38,7 +39,8 @@ app.controller("ChannelController", function ($scope, $rootScope, $location, Cha
         ChannelService.retrievePosts({
             "channel_id": $routeParams.id
         }).then(function (data) {
-                $scope.posts = data.data.data;
+                $scope.total_posts = data.data.data.reverse();
+                $scope.posts = $scope.total_posts.splice(0, 2).reverse();
             },
             function (error) {
                 swal({
@@ -49,7 +51,9 @@ app.controller("ChannelController", function ($scope, $rootScope, $location, Cha
             })
     }
     $scope.retrievePosts();
-
+    $scope.lazy_load = function () {
+        $scope.posts = [...$scope.total_posts.splice(0, 2).reverse(), ...$scope.posts];
+    }
     $scope.createPost = function () {
         document.getElementById("overlay").style.display = "block";
         ChannelService.createPost({
@@ -60,11 +64,6 @@ app.controller("ChannelController", function ($scope, $rootScope, $location, Cha
                 $scope.retrievePosts();
                 document.getElementById("overlay").style.display = "none";
                 $scope.description = "";
-                swal({
-                    title: "success",
-                    text: "Some Error occured",
-                    icon: "success",
-                });
             },
             function (error) {
                 document.getElementById("overlay").style.display = "none";

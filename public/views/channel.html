@@ -18,10 +18,16 @@
             </div>
         </div>
         <main class="col-md-9 col-xs-11 p-l-2 p-t-2">
-            <div class="section landing-section">
+            <div class="section landing-section" style="padding:0px 0px">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 ml-auto mr-auto">
+                            <h2 class="text-center">Discussion</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 ml-auto mr-auto posts">
+                            <button class="btn btn-danger" ng-hide="total_posts.length == 0" ng-click="lazy_load()">Load More</button>
                             <div ng-repeat="p in posts" class="typography-line">
                                 <blockquote class="blockquote">
                                     <p class="mb-0">
