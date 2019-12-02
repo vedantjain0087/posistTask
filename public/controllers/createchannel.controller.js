@@ -25,6 +25,7 @@ app.controller("CreateChannelController", function ($scope, $rootScope, $locatio
     };
 
     $scope.createChannel = function () {
+        document.getElementById("overlay").style.display = "block";
         ChannelService.createChannel(
             {
                 "name":$scope.channel.name,
@@ -33,6 +34,7 @@ app.controller("CreateChannelController", function ($scope, $rootScope, $locatio
                 "users":localStorage.getItem('id')
             }
         ).then(function (data) {
+        document.getElementById("overlay").style.display = "none";
             swal({
                 title: "Success",
                 text: "Channel Created Successfully",
@@ -46,6 +48,7 @@ app.controller("CreateChannelController", function ($scope, $rootScope, $locatio
             $scope.selection = [];
             },
             function (error) {
+        document.getElementById("overlay").style.display = "none";
                 swal({
                     title: "Error",
                     text: "Some Error occured",

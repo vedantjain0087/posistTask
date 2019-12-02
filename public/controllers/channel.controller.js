@@ -51,12 +51,14 @@ app.controller("ChannelController", function ($scope, $rootScope, $location, Cha
     $scope.retrievePosts();
 
     $scope.createPost = function () {
+        document.getElementById("overlay").style.display = "block";
         ChannelService.createPost({
             uid: localStorage.getItem('id'),
             channel_id: $routeParams.id,
             description: $scope.description
         }).then(function (data) {
                 $scope.retrievePosts();
+                document.getElementById("overlay").style.display = "none";
                 $scope.description = "";
                 swal({
                     title: "success",
@@ -65,6 +67,7 @@ app.controller("ChannelController", function ($scope, $rootScope, $location, Cha
                 });
             },
             function (error) {
+                document.getElementById("overlay").style.display = "none";
                 swal({
                     title: "Error",
                     text: "Some Error occured",
@@ -72,5 +75,5 @@ app.controller("ChannelController", function ($scope, $rootScope, $location, Cha
                 });
             })
     }
-  
+
 })
