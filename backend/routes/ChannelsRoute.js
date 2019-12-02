@@ -17,6 +17,8 @@ module.exports = (app) => {
 
     app.get('/trendingchannels',validateUser, Channel.trendingChannels);// Trending Channels
 
+    app.get('/trendingtags',validateUser, Channel.trendingTags);// Trending Channels
+
 
 
 

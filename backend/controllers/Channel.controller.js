@@ -168,21 +168,53 @@ exports.trendingChannels = (req, res, next) => {
             $sort: {
                 subscribedGroupsLength: -1
             }
-        }], function (err, result) {
-            if (err) {
-                res.status(400).json({
-                    status: "error",
-                    message: "Some Error Occured",
-                    data: err
-                });
-            } else {
-                res.status(200).json({
-                    status: "success",
-                    message: "Success",
-                    data: result
-                });
-            }
         }
-    )
+    ], function (err, result) {
+        if (err) {
+            res.status(400).json({
+                status: "error",
+                message: "Some Error Occured",
+                data: err
+            });
+        } else {
+            res.status(200).json({
+                status: "success",
+                message: "Success",
+                data: result
+            });
+        }
+    })
 }
 
+exports.trendingTags = (req, res, next) => {
+    channelModel.aggregate([{
+            $unwind: '$tags'
+        },
+        {
+            $group: {
+                _id: '$tags',
+                sum: {
+                    $sum: 1
+                }
+            }
+        }, {
+            $sort: {
+                sum: -1
+            }
+        }
+    ], function (err, result) {
+        if (err) {
+            res.status(400).json({
+                status: "error",
+                message: "Some Error Occured",
+                data: err
+            });
+        } else {
+            res.status(200).json({
+                status: "success",
+                message: "Success",
+                data: result
+            });
+        }
+    })
+}
