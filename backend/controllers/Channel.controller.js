@@ -8,8 +8,8 @@ exports.create = (req, res, next) => {
         name: req.body.name,
         description: req.body.description,
         tags: req.body.tags,
-        users:[ObjectId(req.body.users)],
-        
+        users: [ObjectId(req.body.users)],
+
     }, function (err, result) {
         if (err) {
             res.status(400).json({
@@ -80,7 +80,8 @@ exports.myChannels = (req, res, next) => {
 
 exports.available = (req, res, next) => {
     channelModel.find({
-        "users": {$nin :[ObjectId(req.body.user_id)]
+        "users": {
+            $nin: [ObjectId(req.body.user_id)]
         }
     }, function (err, result) {
         if (err) {
@@ -153,4 +154,34 @@ exports.members = (req, res, next) => {
             });
         }
     });
+}
+
+exports.trendingChannels = (req, res, next) => {
+    channelModel.aggregate([{
+            $addFields: {
+                subscribedGroupsLength: {
+                    $size: "$users"
+                }
+            }
+        },
+        {
+            $sort: {
+                subscribedGroupsLength: -1
+            }
+        }], function (err, result) {
+            if (err) {
+                res.status(400).json({
+                    status: "error",
+                    message: "Some Error Occured",
+                    data: err
+                });
+            } else {
+                res.status(200).json({
+                    status: "success",
+                    message: "Success",
+                    data: result
+                });
+            }
+        }
+    )
 }

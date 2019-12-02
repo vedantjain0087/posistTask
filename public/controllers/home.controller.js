@@ -1,4 +1,4 @@
-app.controller("HomeController", function ($scope, $rootScope, $location, AuthService) {
+app.controller("HomeController", function ($scope, $rootScope, $location, AuthService, ChannelService) {
     if(localStorage.getItem('id') && localStorage.getItem('user-token')){
         $location.path('/dashboard');
     }
@@ -38,13 +38,13 @@ app.controller("HomeController", function ($scope, $rootScope, $location, AuthSe
             $scope.user = {};
             $location.path('/login');
         }, function (error) {
+            console.log(error);
             document.getElementById("overlay").style.display = "none";
             swal({
                 title: "Error",
-                text: error.data.errmsg,
+                text: error.data.data.message,
                 icon: "warning",
             });
         })
-
     }
 });
