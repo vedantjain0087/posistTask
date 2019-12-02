@@ -5,6 +5,7 @@ app.controller("DashController", function ($scope, $rootScope, $location, Channe
     }
     $scope.myChannels = [];
     $scope.trendingChannels = [];
+    $scope.activeUsers = [];
     ChannelService.myChannels({
         "user_id": localStorage.getItem('id')
     }).then(function (data) {
@@ -19,6 +20,12 @@ app.controller("DashController", function ($scope, $rootScope, $location, Channe
         })
     ChannelService.trendingChannels().then(function (data) {
         $scope.trendingChannels = data.data.data;
+    }, function (err) {
+        console.log(err);
+    })
+
+    ChannelService.activeUsers().then(function (data) {
+        $scope.activeUsers = data.data.data;
     }, function (err) {
         console.log(err);
     })

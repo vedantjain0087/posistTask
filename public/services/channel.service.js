@@ -134,4 +134,21 @@ app.service("ChannelService", function ($http, $q) {
             });
         return pr.promise;
     }
+
+    this.activeUsers = function () {
+        var pr = $q.defer();
+        $http.get('/activeusers', {
+                headers: {
+                    "x-access-token": localStorage.getItem('user-token')
+                }
+            })
+            .then(function (data) {
+                pr.resolve(data);
+            }, function (err) {
+                pr.reject(err);
+            }).catch(function (err) {
+                console.log("ERROR");
+            });
+        return pr.promise;
+    }
 });
